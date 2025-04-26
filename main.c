@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include "lvgl/lvgl.h"
-#include "cxwm/cxwm.h"
+#include "wm/wm.h"
 
 static int s_signal = 0;
 static void signal_handler(int signal)
@@ -11,7 +11,7 @@ static void signal_handler(int signal)
 
 static void lv_linux_init(void)
 {
-	lv_sdl_window_create(480, 720);/* 4 * 6 */
+	lv_sdl_window_create(1280, 480);
 	lv_sdl_mouse_create();
 }
 
@@ -22,8 +22,7 @@ int main(void)
 	lv_init();
 	lv_linux_init();
 
-	(void) cx_main_start(lv_screen_active());
-
+	mainwindow_start(lv_screen_active());
 	while (!s_signal) {
 		uint32_t delay = lv_timer_handler();
 		if (delay < 1) delay = 1;
@@ -31,6 +30,5 @@ int main(void)
 	}
 
 	lv_deinit();
-
 	return 0;
 }

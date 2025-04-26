@@ -1,10 +1,9 @@
 # xiekangli
 #
-ROOT_DIR	?= ${shell pwd}
-CXWM_DIR_NAME	?= cxwm
+ROOT_DIR	?= $(shell pwd)
+WM_DIR_NAME	?= wm
 LVGL_DIR_NAME	?= lvgl
-LVGL_DIR	?= $(ROOT_DIR)
-BIN		?= wm
+BIN		?= cwm
 BUILD_DIR	?= $(ROOT_DIR)/build
 
 CC	?= gcc
@@ -13,8 +12,8 @@ AR	?= ar
 CFLAGS	?= -Wall -std=gnu99 -g #-Werror
 LDFLAGS	?= -lSDL2
 
-include $(LVGL_DIR)/$(LVGL_DIR_NAME)/lvgl.mk
-include $(LVGL_DIR)/$(CXWM_DIR_NAME)/cxwm.mk
+include $(ROOT_DIR)/$(LVGL_DIR_NAME)/lvgl.mk
+include $(ROOT_DIR)/$(WM_DIR_NAME)/wm.mk
 
 CSRCS += main.c
 
@@ -40,13 +39,10 @@ default: $(TARGET)
 	@$(CC) -o $(BUILD_DIR)/$(BIN) $(TARGET) $(LDFLAGS)
 
 clean:
-	@rm -rf $(BUILD_DIR)/cxwm
+	@rm -rf $(BUILD_DIR)/cwm
 
 distclean:
 	@rm -rf $(BUILD_DIR)
-
-cscope:
-	@${shell cscope -Rbkq}
 
 run:
 	@$(BUILD_DIR)/$(BIN)
