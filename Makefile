@@ -1,51 +1,41 @@
 # xiekangli
 #
-ROOT_DIR	?= $(shell pwd)
-WM_DIR_NAME	?= wm
-LVGL_DIR_NAME	?= lvgl
-BIN		?= cwm
-BUILD_DIR	?= $(ROOT_DIR)/build
+ROOT_DIR	= $(shell pwd)
+SUB_LVGL	= lvgl
+SUB_WM		= wm
+BUILD_DIR	= $(ROOT_DIR)/build
+INSTALL_PREFIX	= $(ROOT_DIR)/install
 
-CC	?= gcc
-AR	?= ar
+CC	= gcc
+AR	= ar
 
-CFLAGS	?= -Wall -std=gnu99 -g #-Werror
-LDFLAGS	?= -lSDL2
+.PHONY: lvgl clean install uninstall
 
-include $(ROOT_DIR)/$(LVGL_DIR_NAME)/lvgl.mk
-include $(ROOT_DIR)/$(WM_DIR_NAME)/wm.mk
+all: prepare default
 
-CSRCS += main.c
+prepare:
 
-AOBJS	= $(ASRCS:.S=.o)
-COBJS	= $(CSRCS:.c=.o)
+lvgl:
+	@$(MAKE) -C $(SUB_LVGL) CC=$(CC)
 
-TARGET	= $(addprefix $(BUILD_DIR)/, $(patsubst $(ROOT_DIR)/%, %, $(COBJS)))
-
-all: default
-
-$(BUILD_DIR)/%.o: %.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "CC	$<"
-
-$(BUILD_DIR)/%.o: %.S
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "CC	$<"
-
-default: $(TARGET)
-	@mkdir -p $(dir $(BUILD_DIR)/)
-	@$(CC) -o $(BUILD_DIR)/$(BIN) $(TARGET) $(LDFLAGS)
+default:
+	@$(MAKE) -C $(SUB_WM) CC=$(CC)
 
 clean:
-	@rm -rf $(BUILD_DIR)/cwm
+	@$(MAKE) -C $(SUB_WM) clean
 
-distclean:
+distclean: clean
+	@$(MAKE) -C $(SUB_LVGL) clean
 	@rm -rf $(BUILD_DIR)
 
-run:
-	@$(BUILD_DIR)/$(BIN)
+install: uninstall
+	@mkdir -p $(INSTALL_PREFIX)/{lib,bin,share}
+	@cp $(BUILD_DIR)/lvgl/liblvgl.so $(INSTALL_PREFIX)/lib/
+	@cp $(BUILD_DIR)/wm/cwm $(INSTALL_PREFIX)/bin/
+	@cp -r $(ROOT_DIR)/resources $(INSTALL_PREFIX)/share/
 
-debug:
-	@gdb $(BUILD_DIR)/$(BIN)
+uninstall:
+	@rm -rf $(INSTALL_PREFIX)
+
+run: install
+	@cd $(INSTALL_PREFIX) && ./bin/cwm 800 1280

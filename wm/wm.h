@@ -30,7 +30,8 @@ extern "C" {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-extern void *mainwindow_start(lv_obj_t *parent);
+extern void wm_init(void);
+extern void wm_deinit(void);
 
 /**********************
  *      MACROS

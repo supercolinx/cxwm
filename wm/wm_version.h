@@ -1,8 +1,3 @@
-/**
- * @file wm_version.h
- * The current version of WM
- */
-
 #ifndef WM_VERSION_H
 #define WM_VERSION_H
 

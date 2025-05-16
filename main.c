@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
 #include "lvgl/lvgl.h"
@@ -11,18 +12,22 @@ static void signal_handler(int signal)
 
 static void lv_linux_init(void)
 {
-	lv_sdl_window_create(1280, 480);
+	lv_sdl_window_create(800, 1280);
 	lv_sdl_mouse_create();
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
+	if (argc < 2) {
+		fprintf(stderr, "Usage: %s <width> <height>\n", argv[0]);
+		return -1;
+	}
+
 	signal(SIGINT, signal_handler);
 
 	lv_init();
 	lv_linux_init();
 
-	mainwindow_start(lv_screen_active());
 	while (!s_signal) {
 		uint32_t delay = lv_timer_handler();
 		if (delay < 1) delay = 1;
