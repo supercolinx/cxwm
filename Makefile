@@ -18,7 +18,7 @@ prepare:
 lvgl:
 	@$(MAKE) -C $(SUB_LVGL) CC=$(CC)
 
-default:
+default: lvgl
 	@$(MAKE) -C $(SUB_WM) CC=$(CC)
 
 clean:
@@ -30,9 +30,9 @@ distclean: clean
 
 install: uninstall
 	@mkdir -p $(INSTALL_PREFIX)/{lib,bin,share}
-	@cp $(BUILD_DIR)/lvgl/liblvgl.so $(INSTALL_PREFIX)/lib/
-	@cp $(BUILD_DIR)/wm/cwm $(INSTALL_PREFIX)/bin/
-	@cp -r $(ROOT_DIR)/resources $(INSTALL_PREFIX)/share/
+	-@cp $(BUILD_DIR)/lvgl/liblvgl.so $(INSTALL_PREFIX)/lib/
+	-@cp $(BUILD_DIR)/wm/cwm $(INSTALL_PREFIX)/bin/
+	-@cp -r $(ROOT_DIR)/resources $(INSTALL_PREFIX)/share/
 
 uninstall:
 	@rm -rf $(INSTALL_PREFIX)
