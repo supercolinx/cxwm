@@ -39,3 +39,4 @@ uninstall:
 
 run: install
 	@cd $(INSTALL_PREFIX) && ./bin/cwm 800 1280
+#@cd $(INSTALL_PREFIX) && ./bin/cwm 1200 1920
