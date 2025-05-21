@@ -6,28 +6,33 @@
 #include "wm/wm.h"
 
 static int s_signal = 0;
-static void signal_handler(int signal)
+static void
+signal_handler(int signal)
 {
 	s_signal = signal;
 }
 
-static void lv_linux_init(int hor_res, int ver_res)
+static void
+lv_linux_init(int argc, char *argv[])
 {
-	lv_sdl_window_create(hor_res, ver_res);
+#if LV_USE_SDL
+	lv_sdl_window_create(
+			argc > 1 ? atoi(argv[1]) : 800,
+			argc > 2 ? atoi(argv[2]) : 1280
+			);
 	lv_sdl_mouse_create();
+#else
+#error "Unknown device!!!"
+#endif
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
-	if (argc != 3) {
-		fprintf(stderr, "Usage: %s <hor_res> <ver_res>\n", argv[0]);
-		return -1;
-	}
-
 	signal(SIGINT, signal_handler);
 
 	lv_init();
-	lv_linux_init(atoi(argv[1]), atoi(argv[2]));
+	lv_linux_init(argc, argv);
 
 	while (!s_signal) {
 		uint32_t delay = lv_timer_handler();

@@ -92,7 +92,7 @@
  * - LV_OS_CUSTOM */
 #define LV_USE_OS   LV_OS_NONE
 
-#if LV_USE_OS == LV_OS_CUSTOM
+#if LV_USE_OS == LV_OS_PTHREAD
     #define LV_OS_CUSTOM_INCLUDE <stdint.h>
 #endif
 
@@ -271,7 +271,7 @@
     *LV_LOG_LEVEL_ERROR       Only critical issue, when the system may fail
     *LV_LOG_LEVEL_USER        Only logs added by the user
     *LV_LOG_LEVEL_NONE        Do not log anything*/
-    #define LV_LOG_LEVEL LV_LOG_LEVEL_USER
+    #define LV_LOG_LEVEL LV_LOG_LEVEL_WARN
 
     /*1: Print the log with 'printf';
     *0: User need to register a callback with `lv_log_register_print_cb()`*/
@@ -951,7 +951,7 @@
 #if LV_USE_SDL
     #define LV_SDL_INCLUDE_PATH     <SDL2/SDL.h>
     #define LV_SDL_RENDER_MODE      LV_DISPLAY_RENDER_MODE_DIRECT   /*LV_DISPLAY_RENDER_MODE_DIRECT is recommended for best performance*/
-    #define LV_SDL_BUF_COUNT        1    /*1 or 2*/
+    #define LV_SDL_BUF_COUNT        2    /*1 or 2*/
     #define LV_SDL_ACCELERATED      1    /*1: Use hardware acceleration*/
     #define LV_SDL_FULLSCREEN       0    /*1: Make the window full screen by default*/
     #define LV_SDL_DIRECT_EXIT      1    /*1: Exit the application when all SDL windows are closed*/
