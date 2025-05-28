@@ -34,11 +34,13 @@ main(int argc, char *argv[])
 	lv_init();
 	lv_linux_init(argc, argv);
 
+	wm_init();
 	while (!s_signal) {
 		uint32_t delay = lv_timer_handler();
 		if (delay < 1) delay = 1;
 		usleep(delay * 1000);
 	}
+	wm_deinit();
 
 	lv_deinit();
 	return 0;

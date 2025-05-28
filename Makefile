@@ -6,8 +6,10 @@ SUB_WM		= wm
 BUILD_DIR	= $(ROOT_DIR)/build
 INSTALL_PREFIX	= $(ROOT_DIR)/install
 
-CC	= gcc
-AR	= ar
+MAKEFLAGS	= -j2 -l2
+CROSS_COMPILE	=
+CC	= $(CROSS_COMPILE)gcc
+AR	= $(CROSS_COMPILE)ar
 
 .PHONY: lvgl clean install uninstall
 
