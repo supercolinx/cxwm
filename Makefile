@@ -40,4 +40,4 @@ uninstall:
 	@rm -rf $(INSTALL_PREFIX)
 
 run: install
-	@cd $(INSTALL_PREFIX) && ./bin/cwm #800 1280
+	@cd $(INSTALL_PREFIX) && ./bin/cwm 800 1280

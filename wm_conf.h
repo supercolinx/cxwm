@@ -1,9 +1,7 @@
-#if 1
-
-#ifndef WM_CONF_H
-#define WM_CONF_H
+#ifndef _WM_CONF_H
+#define _WM_CONF_H
+#include <stdlib.h>
+#include <string.h>
 #include "lvgl/lvgl.h"
 
-#endif /* WM_CONF_H */
-
-#endif
+#endif /* _WM_CONF_H */
