@@ -5,6 +5,12 @@
 #include "lvgl/lvgl.h"
 #include "wm/wm.h"
 
+/*
+ * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+ * ┃ Run dmenu to ask the user for their choice                                ┃
+ * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+ */
+
 static int s_signal = 0;
 static void
 signal_handler(int signal)
@@ -36,9 +42,9 @@ main(int argc, char *argv[])
 
 	wm_init();
 	while (!s_signal) {
-		uint32_t delay = lv_timer_handler();
-		if (delay < 1) delay = 1;
-		usleep(delay * 1000);
+		uint32_t ms = lv_timer_handler();
+		if (ms < 1) ms = 1;
+		lv_delay_ms(ms);
 	}
 	wm_deinit();
 
