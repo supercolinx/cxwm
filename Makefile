@@ -34,7 +34,7 @@ install: uninstall
 	@mkdir -p $(INSTALL_PREFIX)/{lib,bin,share/cxwm}
 	-@cp $(BUILD_DIR)/lvgl/liblvgl.so $(INSTALL_PREFIX)/lib/
 	-@cp $(BUILD_DIR)/wm/cwm $(INSTALL_PREFIX)/bin/
-	-@cp -r $(ROOT_DIR)/resources/* $(INSTALL_PREFIX)/share/cxwm/
+	-@cp -r $(ROOT_DIR)/resources/* $(INSTALL_PREFIX)/share/
 
 uninstall:
 	@rm -rf $(INSTALL_PREFIX)

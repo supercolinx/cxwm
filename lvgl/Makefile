@@ -12,7 +12,7 @@ BUILD_DIR	= $(ROOT_DIR)/../build/lvgl
 
 CC	?= gcc
 
-CFLAGS	= -Wall -std=gnu99 -fPIC \
+CFLAGS	= -Wall -std=gnu99 -O3 -fPIC \
 	  -I$(ROOT_DIR) \
 	  -I/usr/include/freetype2
 LDFLAGS	= -lfreetype -lpthread -lSDL2

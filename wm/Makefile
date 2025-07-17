@@ -12,7 +12,7 @@ BUILD_DIR	= $(ROOT_DIR)/../build/wm
 
 CC	?= gcc
 
-CFLAGS	= -Wall -std=gnu99 \
+CFLAGS	= -Wall -std=gnu99 -O3 \
 	  -I$(ROOT_DIR) \
 	  -I$(ROOT_DIR)/..
 LDFLAGS = -L$(ROOT_DIR)/../build/lvgl -llvgl \

@@ -20,7 +20,6 @@ wm_bar_style_init(lv_obj_t *obj)
 	lv_obj_set_height(obj, LV_SIZE_CONTENT);
 	lv_obj_set_style_border_side(obj, LV_BORDER_SIDE_NONE, 0);
 	lv_obj_set_style_bg_opa(obj, LV_OPA_COVER, 0);
-	lv_obj_set_style_bg_color(obj, lv_color_black(), 0);
 }
 
 void*
