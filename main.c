@@ -21,7 +21,10 @@ signal_handler(int signal)
 static void
 lv_linux_init(int argc, char *argv[])
 {
-#if LV_USE_SDL
+#if LV_USE_LINUX_DRM
+	lv_display_t *disp = lv_linux_drm_create();
+	lv_linux_drm_set_file(disp, "/dev/dri/card0", 0);
+#elif LV_USE_SDL
 	lv_sdl_window_create(
 			argc > 1 ? atoi(argv[1]) : 800,
 			argc > 2 ? atoi(argv[2]) : 1280
