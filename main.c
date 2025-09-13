@@ -6,9 +6,9 @@
 #include "wm/wm.h"
 
 /*
- * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃ Run dmenu to ask the user for their choice                                ┃
- * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+ * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+ * ┃ Run dmenu to ask the user for their choice               ┃
+ * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
  */
 
 static int s_signal = 0;
@@ -21,13 +21,15 @@ signal_handler(int signal)
 static void
 lv_linux_init(int argc, char *argv[])
 {
-#if LV_USE_LINUX_DRM
-	lv_display_t *disp = lv_linux_drm_create();
-	lv_linux_drm_set_file(disp, "/dev/dri/card0", 0);
+#if LV_USE_LINUX_FBDEV
+	lv_display_t *disp = lv_linux_fbdev_create();
+	if (disp) {
+		lv_linux_fbdev_set_file(disp, "/dev/fb0");
+	}
 #elif LV_USE_SDL
 	lv_sdl_window_create(
-			argc > 1 ? atoi(argv[1]) : 800,
-			argc > 2 ? atoi(argv[2]) : 1280
+			argc > 1 ? atoi(argv[1]) : 1280,
+			argc > 2 ? atoi(argv[2]) : 720
 			);
 	lv_sdl_mouse_create();
 #else

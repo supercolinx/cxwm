@@ -30,7 +30,7 @@ distclean: clean
 	@$(MAKE) -C $(SUB_LVGL) clean
 	@rm -rf $(BUILD_DIR)
 
-install: uninstall
+install: uninstall all
 	@mkdir -p $(INSTALL_PREFIX)/{lib,bin,share/cxwm}
 	-@cp $(BUILD_DIR)/lvgl/liblvgl.so $(INSTALL_PREFIX)/lib/
 	-@cp $(BUILD_DIR)/wm/cwm $(INSTALL_PREFIX)/bin/
