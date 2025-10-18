@@ -45,13 +45,11 @@ main(int argc, char *argv[])
 	lv_init();
 	lv_linux_init(argc, argv);
 
-	wm_init();
 	while (!s_signal) {
 		uint32_t ms = lv_timer_handler();
 		if (ms < 1) ms = 1;
 		lv_delay_ms(ms);
 	}
-	wm_deinit();
 
 	lv_deinit();
 	return 0;

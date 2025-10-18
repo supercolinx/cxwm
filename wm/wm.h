@@ -30,8 +30,6 @@ extern "C" {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-extern void wm_init(void);
-extern void wm_deinit(void);
 
 /**********************
  *      MACROS
