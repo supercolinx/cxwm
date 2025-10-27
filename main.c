@@ -1,3 +1,9 @@
+/**
+ * @file	main.c
+ * @author	Colin X
+ * @date	Sat Oct 25 23:14:18 2025
+ * @description:
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -22,15 +28,15 @@ static void
 lv_linux_init(int argc, char *argv[])
 {
 #if LV_USE_LINUX_FBDEV
-	lv_display_t *disp = lv_linux_fbdev_create();
+	lv_display_t *disp;
+	disp = lv_linux_fbdev_create();
 	if (disp) {
 		lv_linux_fbdev_set_file(disp, "/dev/fb0");
 	}
 #elif LV_USE_SDL
 	lv_sdl_window_create(
 			argc > 1 ? atoi(argv[1]) : 1280,
-			argc > 2 ? atoi(argv[2]) : 720
-			);
+			argc > 2 ? atoi(argv[2]) : 720);
 	lv_sdl_mouse_create();
 #else
 #error "Unknown device!!!"
@@ -45,6 +51,7 @@ main(int argc, char *argv[])
 	lv_init();
 	lv_linux_init(argc, argv);
 
+	wm_init();
 	while (!s_signal) {
 		uint32_t ms = lv_timer_handler();
 		if (ms < 1) ms = 1;

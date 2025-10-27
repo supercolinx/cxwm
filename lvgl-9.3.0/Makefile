@@ -13,10 +13,8 @@ BUILD_DIR	= $(ROOT_DIR)/../build/lvgl
 CC	?= gcc
 
 CFLAGS	= -Wall -std=gnu99 -O3 -fPIC \
-	  -I$(ROOT_DIR) \
-	  -I/usr/include/freetype2
-LDFLAGS	= -lfreetype -lpthread -lSDL2 \
-	  -lavcodec -lavformat -lswscale
+	  -I$(ROOT_DIR)
+LDFLAGS	= -lpthread -lSDL2 -ljpeg
 
 CSRCS	= $(shell find $(ROOT_DIR)/src -type f -name '*.c')
 

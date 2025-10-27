@@ -33,6 +33,7 @@ distclean: clean
 install: uninstall all
 	@mkdir -p $(INSTALL_PREFIX)/lib
 	@mkdir -p $(INSTALL_PREFIX)/bin
+	@mkdir -p $(INSTALL_PREFIX)/share/
 	-@cp $(BUILD_DIR)/lvgl/liblvgl.so $(INSTALL_PREFIX)/lib/
 	-@cp $(BUILD_DIR)/wm/cwm $(INSTALL_PREFIX)/bin/
 	-@cp -r $(ROOT_DIR)/resources/* $(INSTALL_PREFIX)/share/
@@ -41,4 +42,4 @@ uninstall:
 	@rm -rf $(INSTALL_PREFIX)
 
 run: install
-	@cd $(INSTALL_PREFIX) && ./bin/cwm 1280 480#480 854
+	@cd $(INSTALL_PREFIX) && ./bin/cwm 1280 720 #1280 480#480 854
