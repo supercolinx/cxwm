@@ -41,4 +41,4 @@ install: uninstall
 	-@cp -r $(ROOT_DIR)/resources/* $(INSTALL_PREFIX)/share/
 
 run: install
-	@cd $(INSTALL_PREFIX) && taskset -c 1 ./bin/cxwm 1280 720 #1280 480#480 854
+	@cd $(INSTALL_PREFIX) && taskset -c 1 ./bin/cxwm 1920 1080
