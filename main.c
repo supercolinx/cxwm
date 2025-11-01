@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include "lvgl/lvgl.h"
-#include "wm/wm.h"
+#include "cxwm/cxwm.h"
 
 /*
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -51,7 +51,6 @@ main(int argc, char *argv[])
 	lv_init();
 	lv_linux_init(argc, argv);
 
-	wm_init();
 	while (!s_signal) {
 		uint32_t ms = lv_timer_handler();
 		if (ms < 1) ms = 1;

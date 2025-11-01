@@ -1,14 +1,14 @@
 # xiekangli
 #
-VERSION_FILE	= wm_version.h
+VERSION_FILE	= cx_version.h
 VERSION_MAJOR	= 1
 VERSION_MINOR	= 0
 VERSION_PATCH	= 0
 VERSION_INFO	= \"\"
 
 ROOT_DIR	= .
-TARGET		= cwm
-BUILD_DIR	= $(ROOT_DIR)/../build/wm
+TARGET		= cxwm
+BUILD_DIR	= $(ROOT_DIR)/../build/cxwm
 
 CC	?= gcc
 
@@ -32,16 +32,16 @@ $(BUILD_DIR)/%.o: %.c
 	@echo "CC	$<"
 
 prepare:
-	@cp $(ROOT_DIR)/../wm_conf.h $(ROOT_DIR)/src/wm_conf_internal.h
-	@echo "#ifndef WM_VERSION_H" > $(VERSION_FILE)
-	@echo "#define WM_VERSION_H" >> $(VERSION_FILE)
+	@cp $(ROOT_DIR)/../cx_conf.h $(ROOT_DIR)/src/cx_conf_internal.h
+	@echo "#ifndef CX_VERSION_H" > $(VERSION_FILE)
+	@echo "#define CX_VERSION_H" >> $(VERSION_FILE)
 	@echo >> $(VERSION_FILE)
-	@echo "#define WM_VERSION_MAJOR $(VERSION_MAJOR)" >> $(VERSION_FILE)
-	@echo "#define WM_VERSION_MINOR $(VERSION_MINOR)" >> $(VERSION_FILE)
-	@echo "#define WM_VERSION_PATCH $(VERSION_PATCH)" >> $(VERSION_FILE)
-	@echo "#define WM_VERSION_INFO $(VERSION_INFO)" >> $(VERSION_FILE)
+	@echo "#define CX_VERSION_MAJOR $(VERSION_MAJOR)" >> $(VERSION_FILE)
+	@echo "#define CX_VERSION_MINOR $(VERSION_MINOR)" >> $(VERSION_FILE)
+	@echo "#define CX_VERSION_PATCH $(VERSION_PATCH)" >> $(VERSION_FILE)
+	@echo "#define CX_VERSION_INFO $(VERSION_INFO)" >> $(VERSION_FILE)
 	@echo >> $(VERSION_FILE)
-	@echo "#endif /* WM_VERSION_H */" >> $(VERSION_FILE)
+	@echo "#endif /* CX_VERSION_H */" >> $(VERSION_FILE)
 
 default: $(OBJS)
 	@$(CC) -o $(BUILD_DIR)/$(TARGET) $^ $(LDFLAGS)
