@@ -16,7 +16,7 @@ export CROSS_COMPILE	=
 else
 LDFLAGS	= -lSDL2
 endif
-export CFLAGS	= -Wall -std=gnu99 -O2 -g
+export CFLAGS	= -march=native -Wall -std=gnu99 -O2
 export BUILDIR	= $(abspath ./build)
 
 CC	= $(CROSS_COMPILE)gcc

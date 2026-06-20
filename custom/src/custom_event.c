@@ -77,9 +77,12 @@ void custom_event_set_callback(custom_event_cb_t cb)
 	s_event.cb = cb;
 }
 
-void custom_event_dequeue(int timeout)
+void custom_event_dequeue(unsigned int timeout)
 {
 	struct epoll_event evs[CUSTOM_EVENT_MAX];
+
+	if (timeout == 0)
+		return;
 
 	int n = epoll_wait(s_event.epfd, evs, CUSTOM_EVENT_MAX, timeout);
 	if (n == 0) {

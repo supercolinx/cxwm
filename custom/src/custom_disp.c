@@ -32,9 +32,9 @@ static void custom_disp_sdl_init(void)
 
 	static lv_disp_drv_t disp_drv;
 	static lv_disp_draw_buf_t disp_buf;
-	static lv_color_t buf1_1[LV_HOR_RES * LV_VER_RES];
-	static lv_color_t buf1_2[LV_HOR_RES * LV_VER_RES];
-	lv_disp_draw_buf_init(&disp_buf, buf1_1, buf1_2, LV_HOR_RES * LV_VER_RES);
+	static lv_color_t buf1[LV_HOR_RES * LV_VER_RES];
+	static lv_color_t buf2[LV_HOR_RES * LV_VER_RES];
+	lv_disp_draw_buf_init(&disp_buf, buf1, buf2, LV_HOR_RES * LV_VER_RES);
 
 	lv_disp_drv_init(&disp_drv);
 	disp_drv.draw_buf = &disp_buf;

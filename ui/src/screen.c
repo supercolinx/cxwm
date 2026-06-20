@@ -31,8 +31,7 @@ void screen_create(struct ui_manager *ui)
 
 	scr->obj = lv_obj_create(NULL);
 	lv_obj_set_scrollbar_mode(scr->obj, LV_SCROLLBAR_MODE_OFF);
-	lv_obj_set_style_bg_img_src(scr->obj, \
-			UI_IMG_BMP_PATH(bg, LV_HOR_RES, LV_VER_RES), LV_PART_MAIN);
+	lv_obj_set_style_bg_img_src(scr->obj, UI_IMG_BMP_PATH(bg, LV_HOR_RES, LV_VER_RES), LV_PART_MAIN);
 	lv_obj_set_scroll_dir(scr->obj, LV_DIR_HOR);
 
 	lv_obj_set_flex_flow(scr->obj, LV_FLEX_FLOW_ROW);

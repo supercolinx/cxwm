@@ -6,6 +6,9 @@
 */
 #ifndef _CUSTOM_TICKS_H
 #define _CUSTOM_TICKS_H
+#include "lvgl/lvgl.h"
+
+#if !LV_TICK_CUSTOM
 
 /**
  * @function: custom_ticks_init
@@ -22,5 +25,7 @@ int custom_ticks_init(void);
  * @return: void
  */
 void custom_ticks_deinit(void);
+
+#endif /*!LV_TICK_CUSTOM*/
 
 #endif /*_CUSTOM_TICKS_H*/

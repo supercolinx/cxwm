@@ -6,7 +6,7 @@ TARGET	= liblvgl.a
 
 CC	= $(CROSS_COMPILE)gcc
 AR	= $(CROSS_COMPILE)ar
-CFLAGS	+= -I/usr/include/freetype2
+CFLAGS	+=
 
 CSRCS	= $(shell find ./src -type f -name '*.c')
 OBJS	= $(CSRCS:.c=.o)

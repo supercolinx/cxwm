@@ -40,7 +40,7 @@ void custom_event_set_callback(custom_event_cb_t cb);
  * @description: 
  * @return: void
  */
-void custom_event_dequeue(int timeout);
+void custom_event_dequeue(unsigned int timeout);
 
 /**
  * @function: custom_event_enqueue

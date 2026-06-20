@@ -7,10 +7,11 @@
 
 #include <time.h>
 #include <pthread.h>
-#include "lvgl/lvgl.h"
 #include "custom_ticks.h"
 
-#define CUSTOM_TICKS_MS		20
+#if !LV_TICK_CUSTOM
+
+#define CUSTOM_TICKS_MS		16
 
 static pthread_t s_pt = -1;
 static const int s_nsec = CUSTOM_TICKS_MS * 1000000;
@@ -55,3 +56,5 @@ static void *custom_ticks_inc(void *arg)
 
 	return (void*)0;
 }
+
+#endif /*!LV_TICK_CUSTOM*/

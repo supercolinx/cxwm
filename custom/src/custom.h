@@ -37,7 +37,7 @@ void __attribute__((weak)) custom_event_set_callback(void (*cb)(const unsigned i
  * @description: 
  * @return: void
  */
-void __attribute__((weak)) custom_event_dequeue(int timeout);
+void __attribute__((weak)) custom_event_dequeue(unsigned int timeout);
 
 /**
  * @function: custom_event_enqueue
