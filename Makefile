@@ -4,20 +4,18 @@
 
 TARGET	= cwm
 
-SUB_LVGL	= lvgl
-SUB_LVDRIVERS	= lv_drivers
-SUB_CUSTOM	= custom
-SUB_UI		= ui
+SUBUSER	= custom ui
+SUBDIRS	= lvgl lv_drivers $(SUBUSER)
+SUBLIBS	= $(addprefix $(INSTALL)/lib,$(SUBDIRS:=.so))
 
-.PHONY: lvgl lv_drivers custom ui install uninstall clean distclean
+.PHONY: $(SUBDIRS) install uninstall clean distclean
 
 ifeq ($(ARCH),arm)
 export CROSS_COMPILE	=
-else
-LDFLAGS	= -lSDL2
 endif
 export CFLAGS	= -march=native -Wall -std=gnu99 -O2
 export BUILDIR	= $(abspath ./build)
+export INSTALL	= $(abspath ./install)
 
 CC	= $(CROSS_COMPILE)gcc
 AR	= $(CROSS_COMPILE)ar
@@ -25,40 +23,27 @@ AR	= $(CROSS_COMPILE)ar
 all: prepare default
 
 prepare:
+
+default: $(SUBDIRS)
 	@mkdir -p $(BUILDIR)
-
-default: main.c lvgl lv_drivers custom ui
-	@$(CC) $< -I. $(CFLAGS) \
-		$(BUILDIR)/libui.a \
-		$(BUILDIR)/libcustom.a \
-		$(BUILDIR)/liblv_drivers.a \
-		$(BUILDIR)/liblvgl.a \
-		$(LDFLAGS) -o $(BUILDIR)/$(TARGET)
-
-lvgl: prepare
-	@$(MAKE) -C $(SUB_LVGL)
-
-lv_drivers: prepare
-	@$(MAKE) -C $(SUB_LVDRIVERS)
-
-custom: lvgl lv_drivers
-	@$(MAKE) -C $(SUB_CUSTOM)
-
-ui: lvgl lv_drivers custom
-	@$(MAKE) -C $(SUB_UI)
+	@$(foreach sub,$(SUBDIRS),$(MAKE) -C $(sub);)
 
 uninstall:
+	@$(foreach sub,$(SUBDIRS),$(MAKE) -C $(sub) uninstall;)
+	@rm -rf $(INSTALL)/$(TARGET)
 
-intstall:
+install: main.c
+	@mkdir -p $(INSTALL)
+	@$(foreach sub,$(SUBDIRS),$(MAKE) -C $(sub) install;)
+	@$(CC) $< -I. $(CFLAGS) $(SUBLIBS) -o $(INSTALL)/$(TARGET)
 
 clean:
-	@$(MAKE) -C $(SUB_UI) clean
-	@$(MAKE) -C $(SUB_CUSTOM) clean
+	@$(foreach sub,$(SUBUSER),$(MAKE) -C $(sub) clean;)
 	@rm -f $(BUILDIR)/$(TARGET)
 
-distclean: clean
-	@$(MAKE) -C $(SUB_LVGL) clean
-	@$(MAKE) -C $(SUB_LVDRIVERS) clean
+distclean:
+	@$(foreach sub,$(SUBDIRS),$(MAKE) -C $(sub) clean;)
+	@rm -rf $(BUILDIR)
 
-run:
-	@./build/$(TARGET)
+run: install
+	@LD_LIBRARY_PATH=./install $(INSTALL)/$(TARGET)

@@ -11,8 +11,6 @@
 #include "custom_event.h"
 #include "custom.h"
 
-static custom_event_cb_t s_event_cb = NULL;
-
 int custom_init(void)
 {
 #if !LV_TICK_CUSTOM
@@ -33,24 +31,4 @@ void custom_deinit(void)
 #if !LV_TICK_CUSTOM
 	custom_ticks_deinit();
 #endif
-}
-
-void custom_event_set_callback(void (*cb)(const unsigned int*, int))
-{
-	s_event_cb = cb;
-}
-
-void custom_event_dequeue(unsigned int timeout)
-{
-	if (timeout) {
-		usleep(timeout * 1000);
-	}
-}
-
-int custom_event_enqueue(const unsigned int event)
-{
-	if (s_event_cb) {
-		s_event_cb(&event, 1);
-	}
-	return 0;
 }

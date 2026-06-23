@@ -11,7 +11,7 @@
 
 #if !LV_TICK_CUSTOM
 
-#define CUSTOM_TICKS_MS		16
+#define CUSTOM_TICKS_MS	LV_DISP_DEF_REFR_PERIOD
 
 static pthread_t s_pt = -1;
 static const int s_nsec = CUSTOM_TICKS_MS * 1000000;

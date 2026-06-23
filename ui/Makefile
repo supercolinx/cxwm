@@ -2,28 +2,43 @@
 # date: Thu Jan 15 20:03:00 CST 2026
 # description:
 
-TARGET	= libui.a
+MAJOR	= 0
+MINOR	= 0
+PATCH	= 1
+
+STARGET	= libui.so.$(MAJOR).$(MINOR).$(PATCH)
+TARGET	= libui.so
+BUILDIR ?= .
+INSTALL	?= .
 
 CC	= $(CROSS_COMPILE)gcc
 AR	= $(CROSS_COMPILE)ar
-CFLAGS	+= -I..
+
+CMD_INSTALL	= cp
+
+CFLAGS	+= -I.. -fPIC
+LDFLAGS +=
 
 CSRCS	= $(shell find ./src -type f -name '*.c')
 OBJS	= $(CSRCS:.c=.o)
 
-.PHONY: clean
+.PHONY: clean install uninstall
 
-all: prepare default
+all: default
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "CC	$<"
 
-prepare:
-
 default: $(OBJS)
-	@$(AR) rcs $(BUILDIR)/$(TARGET) $^
-	@echo "AR	$(TARGET)"
+	@$(CC) $(LDFLAGS) -shared $^ -o $(BUILDIR)/$(STARGET)
+	@echo "LD	$(STARGET)"
+
+uninstall:
+	@rm -rf $(INSTALL)/$(TARGET)
+
+install:
+	@$(CMD_INSTALL) $(BUILDIR)/$(STARGET) $(INSTALL)/$(TARGET)
 
 clean:
-	@rm -rf $(OBJS) $(BUILDIR)/$(TARGET)
+	@rm -rf $(OBJS) $(BUILDIR)/$(STARGET)
