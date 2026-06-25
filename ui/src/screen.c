@@ -38,8 +38,9 @@ void screen_create(struct ui_manager *ui)
 	lv_obj_set_flex_align(scr->obj, LV_FLEX_ALIGN_START, \
 			LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_SPACE_EVENLY);
 
-	char buf[256];
+	lv_img_cache_invalidate_src(NULL);
 	for (int i = 0; i < 25; ++i) {
+		char buf[256];
 		lv_obj_t *obj = lv_img_create(scr->obj);
 		lv_snprintf(buf, 64, "%s%03d.png", UI_IMG_PATH(emotes/emoji_), i);
 		lv_img_set_src(obj, buf);
