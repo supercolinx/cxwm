@@ -6,7 +6,7 @@ TARGET	= cwm
 
 SUBUSER	= custom ui
 SUBDIRS	= lvgl lv_drivers $(SUBUSER)
-SUBLIBS	= $(addprefix $(INSTALL)/lib,$(SUBDIRS:=.so))
+SUBLIBS	= $(addprefix -l,$(SUBDIRS))
 
 .PHONY: $(SUBDIRS) install uninstall clean distclean
 
@@ -35,7 +35,7 @@ uninstall:
 install: main.c
 	@mkdir -p $(INSTALL)
 	@$(foreach sub,$(SUBDIRS),$(MAKE) -C $(sub) install;)
-	@$(CC) $< -I. $(CFLAGS) $(SUBLIBS) -o $(INSTALL)/$(TARGET)
+	@$(CC) $< -I. $(CFLAGS) -L$(INSTALL) $(SUBLIBS) -o $(INSTALL)/$(TARGET)
 
 clean:
 	@$(foreach sub,$(SUBUSER),$(MAKE) -C $(sub) clean;)
